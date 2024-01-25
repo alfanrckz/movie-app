@@ -32,7 +32,7 @@ app.get("/api/movies/popular", async (req, res) => {
 
 //movies details
 app.get("/api/movies/:id", async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
   try {
     const response = await axios.get(`${baseURL}/movie/${id}`, {

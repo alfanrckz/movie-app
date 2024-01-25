@@ -1,5 +1,6 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require('cors')
 
 const app = express();
 const port = 5000;
@@ -7,6 +8,7 @@ const port = 5000;
 const apiKey = "4019ec549fe1c69f8adfaf718e190f71";
 const baseURL = "https://api.themoviedb.org/3";
 
+app.use(cors());
 app.use(express.json());
 
 //movies popular
@@ -29,7 +31,7 @@ app.get("/api/movies/popular", async (req, res) => {
 });
 
 //movies details
-app.get("api/movies/:id", async (req, res) => {
+app.get("/api/movies/:id", async (req, res) => {
   const { id } = req.params;
 
   try {

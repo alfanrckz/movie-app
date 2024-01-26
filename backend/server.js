@@ -53,6 +53,29 @@ app.get("/api/movies/:id", async (req, res) => {
   }
 });
 
+//search movies
+app.get('/api/movies/search/:query', async (req, res) => {
+  const searchTerm = req.params.query.toLowerCase();
+
+  try {
+    const response = await axios.get(`${baseURL}/search/movie`, {
+      params: {
+        api_key: apiKey,
+        query: searchTerm,
+      },
+    });
+
+    if (response.data && response.data.results) {
+      res.json(response.data.results);
+    } else {
+      throw new Error("No search results found");
+    }
+  } catch (error) {
+    console.error('Error searching movies', error.message);
+    res.status(500).json({ error: "Internal Server Error", message: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
